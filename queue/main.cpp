@@ -47,8 +47,10 @@ class queue{
     }
 
     void pop(){
-        if(this->empty() == false){
-            begin->next->previos = nullptr;
+        if(!this->empty()){
+            if (begin->next != nullptr){
+                begin->next->previos = nullptr;
+            }
         }
         this->begin = begin->next;
     }
