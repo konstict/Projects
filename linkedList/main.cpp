@@ -19,7 +19,6 @@ class nodelist{
 
     int sizen;
     node<T> *first;
-
     public:
 
     nodelist(){

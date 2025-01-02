@@ -59,9 +59,8 @@ class queue{
     }
 
     queueNode<T>* pop(){
-        queueNode<T>* temp = new queueNode<T>();
+        queueNode<T>* temp = this->begin;
         if(this->empty() == false){
-            temp = begin;
             if (begin->next != nullptr){
                 begin->next->previos = nullptr;
             }
