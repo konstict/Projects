@@ -162,13 +162,7 @@ class nodelist{
         node<T>* obj = first;
         for(int i = 0; i < sizen; ++i){
             if(func(obj->value) == true){
-                obj = removeAt(i);
-        if(n!=0){
-            f->next = f->next->next;
-        }
-        else{
-            this->first = first->next;
-        }
+                this->removeAt(i);
                 i--;
             }
             obj = obj->next;
