@@ -84,26 +84,26 @@ public:
 };
 
 
-void start(queue<car> &origin, car car){
-    origin.push(car);
+void start(queue<car*> &origin, car& car){
+    origin.push(&car);
 }
 
 
-void iterat(queue<car> &origin, queue<car> &destination){
+void iterat(queue<car*> &origin, queue<car*> &destination){
     while(!origin.empty()){
-        cout << "У автомобиля " << origin.peek()->val.id << " было завершено " << origin.name << " за " << origin.time << " секунд" << endl;
-        origin.peek()->val.time += origin.time;
+        cout << "У автомобиля " << origin.peek()->val->id << " было завершено " << origin.name << " за " << origin.time << " секунд" << endl;
+        origin.peek()->val->time += origin.time;
         destination.push(origin.pop()->val);
     }
 }
 
 
 int main(){
-    queue<car> kuzov(5, "Сборка кузова");
-    queue<car> engineStage(3, "Установка двигателя");
-    queue<car> koleso(2, "Установка колес"); 
-    queue<car> electronical(4, "Установка электроники"); 
-    queue<car> checker(2, "Финишная проверка");
+    queue<car*> kuzov(5, "Сборка кузова");
+    queue<car*> engineStage(3, "Установка двигателя");
+    queue<car*> koleso(2, "Установка колес"); 
+    queue<car*> electronical(4, "Установка электроники"); 
+    queue<car*> checker(2, "Финишная проверка");
     car a, b;
     car *cars[2] = {&a, &b};
 
