@@ -38,8 +38,43 @@ public:
         cout << endl;
     }
 
-    void insert(){
-        
+    bool insert(int num){
+        int size = this->size();
+        int left = 0, right = size-1, mid=0;
+        while(left <= right){
+            mid = (left+right)/2;
+            if(setList[mid] < num){
+                left = mid+1;
+            }
+            else if(setList[mid] > num){
+                right = mid-1;
+            }
+            else{
+                return false;
+            }
+        }
+        if(mid != size-1 and mid != 0){
+            setList.insert(next(setList.begin() + mid), move(num));
+        }
+        else{
+            if(mid == size-1){
+                if(num > setList[size-1]){
+                    setList.push_back(num);
+                }
+                else{
+                    setList.insert(next(setList.begin() + mid-1), move(num));
+                }
+            }   
+            else if(mid == 0){
+                if(num < setList[0]){ 
+                    setList.insert(setList.begin(), num);
+                }
+                else{
+                    setList.insert(next(setList.begin() + mid), move(num));
+                }
+            }
+        }
+        return true;
     }
 
     bool erase(int num){
@@ -62,10 +97,11 @@ public:
 };
 
 int main(){
-    vector<int> vec{1,2,3,4};
+    vector<int> vec{1,3,5};
     set a(vec);
 
-    a.erase(4);
+    a.insert(0);
+    a.insert(2);
     a.contains();
     return 0;
 }
