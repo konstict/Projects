@@ -2,13 +2,14 @@
 #include <vector>
 using namespace std;
 
+template<typename T>
 class set{
 private:
-    vector<int> setList;
+    vector<T> setList;
 
 public:
     set(){}
-    set(vector<int> arr){
+    set(vector<T> arr){
         for(int i = 0; i < arr.size(); ++i){
             setList.push_back(arr[i]);
         }
@@ -38,57 +39,20 @@ public:
         cout << endl;
     }
 
-    bool insert(int num){
-        int size = this->size();
-        int left = 0, right = size-1, mid=0;
-        while(left <= right){
-            mid = (left+right)/2;
-            if(setList[mid] < num){
-                left = mid+1;
-            }
-            else if(setList[mid] > num){
-                right = mid-1;
-            }
-            else{
+    bool insert(T element){ // time O(n)
+        for(int i = 0; i < setList.size(); ++i){
+            if(setList[i] == element){
                 return false;
             }
         }
-        if(mid != size-1 and mid != 0){
-            setList.insert(next(setList.begin() + mid), move(num));
-        }
-        else{
-            if(mid == size-1){
-                if(num > setList[size-1]){
-                    setList.push_back(num);
-                }
-                else{
-                    setList.insert(next(setList.begin() + mid-1), move(num));
-                }
-            }   
-            else if(mid == 0){
-                if(num < setList[0]){ 
-                    setList.insert(setList.begin(), num);
-                }
-                else{
-                    setList.insert(next(setList.begin() + mid), move(num));
-                }
-            }
-        }
+        setList.push_back(element);
         return true;
     }
 
-    bool erase(int num){
-        int left = 0, right = this->size()-1;
-        while(left <= right){
-            int mid = (left+right)/2;
-            if(setList[mid] < num){
-                left = mid+1;
-            }
-            else if(setList[mid] > num){
-                right = mid-1;
-            }
-            else{
-                setList.erase(setList.begin()+mid);
+    bool erase(T element){ // time O(n)
+        for(int i = 0; i < setList.size(); ++i){
+            if(setList[i] == element){
+                setList.erase(setList.begin() + i);
                 return true;
             }
         }
@@ -97,14 +61,16 @@ public:
 };
 
 int main(){
-    vector<int> vec{1,3,5};
-    set a(vec);
+    set<int> a({1,3,5});
 
     a.insert(0);
-    a.insert(2);
+    a.insert(5);
+    a.erase(3);
     a.contains();
     return 0;
 }
+
+// Очень простейшее множество (без хеш)
 
 // 5. множество (set) https://metanit.com/cpp/tutorial/7.13.php 
 // следующие методы: конструктор, insert, contains, size, isEmpty, erase
