@@ -69,8 +69,8 @@ public:
 
     set<T> operator+(set<T> second){ // time O(n*n)
         set<T> res;
-        int sizeF = this->size()-1;
-        int sizeS = second.size()-1;
+        int sizeF = this->size();
+        int sizeS = second.size();
         for(int i = 0; i < sizeF; ++i){
             for(int j = 0; j < sizeS; ++j){
                 if(this->setList[i] == second.setList[j]){
@@ -118,7 +118,7 @@ int main(){
 
 // задачи на множества:
 // - преобразование списка или массива в множество +
-// - пересечение множеств
+// - пересечение множеств +
 // - разность множеств
 // - объединение множеств
 // - проверка подмножества (входит ли одно множество целиком частью другого)
