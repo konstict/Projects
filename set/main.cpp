@@ -9,13 +9,21 @@ private:
 
 public:
     set(){}
+    
     set(vector<T> arr){
         for(int i = 0; i < arr.size(); ++i){
             setList.push_back(arr[i]);
         }
     }
 
-    int *operator[](int i){
+    template<size_t N>
+    set(T (&arr)[N]){
+        for(int i = 0; i < N; ++i){
+            setList.push_back(arr[i]);
+        }
+    }
+
+    int* operator[](int i){
         return &setList[i];
     }
 
@@ -58,25 +66,58 @@ public:
         }
         return false;
     }
+
+    set<T> operator+(set<T> second){ // time O(n*n)
+        set<T> res;
+        int sizeF = this->size()-1;
+        int sizeS = second.size()-1;
+        for(int i = 0; i < sizeF; ++i){
+            for(int j = 0; j < sizeS; ++j){
+                if(this->setList[i] == second.setList[j]){
+                    res.insert(setList[i]);
+                }
+            }
+        }
+        return res;
+    }
+
+    // operator-(set<T> second){
+    //     set<T> res;
+    //     return res;
+    // }
+
+    // operator&(set<T> second){
+    //     set<T> res;
+    //     return res;
+    // }
+
+    // operator==(set<T> second){
+    //     set<T> res;
+    //     return res;
+    // }
 };
 
 int main(){
-    set<int> a({1,3,5});
+    int arr[] = {3,4,5};
 
-    a.insert(0);
-    a.insert(5);
-    a.erase(3);
+    set<int> a({1,2,3});
+    set<int> b(arr);
+    set<int> c = a+b;
+
     a.contains();
+    b.contains();
+    c.contains();
+
     return 0;
 }
 
 // Очень простейшее множество (без хеш)
 
 // 5. множество (set) https://metanit.com/cpp/tutorial/7.13.php 
-// следующие методы: конструктор, insert, contains, size, isEmpty, erase
+// следующие методы: конструктор, insert, contains, size, isEmpty, erase  +
 
 // задачи на множества:
-// - преобразование списка или массива в множество
+// - преобразование списка или массива в множество +
 // - пересечение множеств
 // - разность множеств
 // - объединение множеств
