@@ -81,20 +81,66 @@ public:
         return res;
     }
 
-    // operator-(set<T> second){
-    //     set<T> res;
-    //     return res;
-    // }
+    set<T> operator-(set<T> second){ // O(nm)
+        set<T> res;
+        int sizeThis = this->size();
+        int sizeSecond = second.size();
+        for(int i = 0; i < sizeThis; ++i){
+            bool elementExist = false;
+            for(int j = 0; j < sizeSecond; ++j){
+                if(this->setList[i] == second.setList[j]){
+                    elementExist = true;
+                }
+            }
+            if(!elementExist){
+                res.insert(this->setList[i]);
+            }
+        }
+        return res;
+    }
 
-    // operator&(set<T> second){
-    //     set<T> res;
-    //     return res;
-    // }
+    set<T> operator&(set<T> second){ // O(nk+mk)
+        int sizeThis = this->size();
+        int sizeSecond = second.size();
+        set<T> res;
+        for(int i = 0; i < sizeThis; ++i){
+            for(int j = 0; j < res.size(); ++j){
+                if(this->setList[i] == res.setList[j]){
+                    break;
+                }
+            }
+            res.insert(this->setList[i]);
+        }
+        for(int i = 0; i < sizeSecond; ++i){
+            for(int j = 0; j < res.size(); ++j){
+                if(this->setList[i] == res.setList[j]){
+                    break;
+                }
+            }
+            res.insert(second.setList[i]);
+        }
+        return res;
+    }
 
-    // operator==(set<T> second){
-    //     set<T> res;
-    //     return res;
-    // }
+    bool operator==(set<T> second){ // O(n*n)
+        int sizeThis = this->size();
+        int sizeSecond = second.size();
+        if(sizeThis > sizeSecond){
+            return false;
+        }
+        for(int i = 0; i < sizeThis; ++i){
+            bool elementExist = false;
+            for(int j = 0; j < sizeSecond; j++){
+                if(this->setList[i] == second.setList[j]){
+                    elementExist = true;
+                }
+            }
+            if(!elementExist){
+                return elementExist;
+            }
+        }
+        return true;
+    }
 };
 
 int main(){
@@ -103,10 +149,16 @@ int main(){
     set<int> a({1,2,3});
     set<int> b(arr);
     set<int> c = a+b;
+    set<int> d = a-b;
+    set<int> e = a&b;
 
     a.contains();
     b.contains();
     c.contains();
+    e.contains();
+    bool isAE = a==e;
+    cout << isAE << endl;
+    d.contains();
 
     return 0;
 }
@@ -119,6 +171,6 @@ int main(){
 // задачи на множества:
 // - преобразование списка или массива в множество +
 // - пересечение множеств +
-// - разность множеств
-// - объединение множеств
-// - проверка подмножества (входит ли одно множество целиком частью другого)
+// - разность множеств +
+// - объединение множеств +
+// - проверка подмножества (входит ли одно множество целиком частью другого) +
