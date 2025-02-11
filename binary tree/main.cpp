@@ -4,11 +4,12 @@ using namespace std;
 
 template<typename T>
 struct node {
-    T* val;
-    node<T>* left, right;
+    T val;
+    node<T> *left, *right;
     node<T>* parent;
     
     node() : val(NULL), left(nullptr), right(nullptr), parent(nullptr) {}
+    node(T val) : val(val) {}
     node(node<T>* left, node<T>* right, node<T>* parent) : val(NULL), left(left), right(right), parent(parent) {}
     node(node<T>* left, node<T>* right, node<T>* parent, T val) : val(val), left(left), right(right), parent(parent) {}
 };
@@ -19,7 +20,7 @@ class tree{
 private:
     node<T>* root;
 public:
-    tree(){}
+    tree() : root(nullptr) {}
     tree(node<T> root) : root(root) {}
 
 
@@ -28,13 +29,18 @@ public:
     }
     
 
+    void setRoot(node<T> *node){
+        this->root = node;
+    }
 };
 
 
 int main(){
 
-    tree<int> a();
-
+    tree<int> a;
+    node<int> *nd = new node<int>(1);
+    
+    a.setRoot(nd);
 
     return 0;
 }
