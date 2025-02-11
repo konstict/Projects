@@ -32,15 +32,20 @@ public:
     void setRoot(node<T> *node){
         this->root = node;
     }
+
+    void insert(node<T> *node){
+
+    }
 };
 
 
 int main(){
 
     tree<int> a;
-    node<int> *nd = new node<int>(1);
+    node<int> *nodes[1] = {new node<int>(1)};
     
-    a.setRoot(nd);
+    a.setRoot(nodes[0]);
+    
 
     return 0;
 }
