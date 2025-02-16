@@ -1,4 +1,6 @@
 #include <iostream>
+#include <queue>
+#include <stack>
 using namespace std;
 
 
@@ -21,7 +23,7 @@ private:
     node<T>* root;
 public:
     tree() : root(nullptr) {}
-    tree(node<T> root) : root(root) {}
+    tree(node<T>* root) : root(root) {}
 
 
     node<T>* getRoot(){
@@ -33,19 +35,56 @@ public:
         this->root = node;
     }
 
-    void insert(node<T> *node){
+    void traversBFSPrint(){
+        node<T>* tempRoot = this->root;
+        queue<node<T>*> q;
+        // while(tempRoot){
+            
+        // }
+    }
 
+    void insert(T element){
+        node<T>* tempRoot = this->root;
+        node<T>* tempNew = new node<T>(element);
+        if(!tempRoot){
+            this->setRoot(tempNew);
+        }
+        else{
+            while(tempRoot){
+                if(element <= tempRoot->val){
+                    if(tempRoot->left){
+                        tempRoot = tempRoot->left;
+                    }
+                    else{
+                        tempRoot->left = tempNew;
+                        break;
+                    }
+                }
+                if(element > tempRoot->val){
+                    if(tempRoot->right){
+                        tempRoot = tempRoot->right;
+                    }
+                    else{
+                        tempRoot->right = tempNew;
+                        break;
+                    }
+                }
+            }
+        }
     }
 };
 
 
 int main(){
 
-    tree<int> a;
     node<int> *nodes[1] = {new node<int>(1)};
-    
-    a.setRoot(nodes[0]);
-    
+    tree<int> a;
+
+    a.insert(5);
+    a.insert(0);
+    a.insert(-5);
+    a.insert(7);
+    a.traversBFSPrint();
 
     return 0;
 }
@@ -54,7 +93,7 @@ int main(){
 // 1. Базовые методы
 // Эти методы являются основой для работы с деревьями.
 
-// 1.1. Вставка узла (insert)
+// 1.1. Вставка узла (insert)      +
 // Добавляет новый элемент в бинарное дерево поиска (BST).
 // void insert(int value);
 // 🔹 Используется в: построении BST, восстановлении дерева.
