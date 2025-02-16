@@ -35,6 +35,7 @@ public:
         this->root = node;
     }
 
+
     void traversBFSPrint(){
         node<T>* tempRoot = this->root;
         queue<node<T>*> q;
@@ -42,6 +43,7 @@ public:
             
         // }
     }
+
 
     void insert(T element){
         node<T>* tempRoot = this->root;
@@ -72,6 +74,23 @@ public:
             }
         }
     }
+
+
+    bool find(T element){
+        node<T>* tempRoot = this->root;
+        while(tempRoot){
+            if(tempRoot->val == element){
+                return true;
+            }
+            else if(element < tempRoot->val){
+                tempRoot = tempRoot->left;
+            }
+            else{
+                tempRoot = tempRoot->right;
+            }
+        }
+        return false;
+    }
 };
 
 
@@ -84,7 +103,10 @@ int main(){
     a.insert(0);
     a.insert(-5);
     a.insert(7);
-    a.traversBFSPrint();
+    
+    cout << a.find(5) << endl;
+
+    
 
     return 0;
 }
