@@ -59,25 +59,23 @@ public:
         if(!tempRoot){
             this->setRoot(tempNew);
         }
-        else{
-            while(tempRoot){
-                if(element <= tempRoot->val){
-                    if(tempRoot->left){
-                        tempRoot = tempRoot->left;
-                    }
-                    else{
-                        tempRoot->left = tempNew;
-                        break;
-                    }
+        while(tempRoot){
+            if(element <= tempRoot->val){
+                if(tempRoot->left){
+                    tempRoot = tempRoot->left;
                 }
-                if(element > tempRoot->val){
-                    if(tempRoot->right){
-                        tempRoot = tempRoot->right;
-                    }
-                    else{
-                        tempRoot->right = tempNew;
-                        break;
-                    }
+                else{
+                    tempRoot->left = tempNew;
+                    break;
+                }
+            }
+            if(element > tempRoot->val){
+                if(tempRoot->right){
+                    tempRoot = tempRoot->right;
+                }
+                else{
+                    tempRoot->right = tempNew;
+                    break;
                 }
             }
         }
