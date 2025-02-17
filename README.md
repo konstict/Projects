@@ -1,1 +1,1 @@
-Hi, it is page of my own mini Projects 
+Hi, it is page of my own very-mini Projects for increase practise and theory skills
