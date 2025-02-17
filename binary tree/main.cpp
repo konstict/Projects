@@ -36,12 +36,20 @@ public:
     }
 
 
-    void traversBFSPrint(){
+    void printBFS(){
         node<T>* tempRoot = this->root;
         queue<node<T>*> q;
-        // while(tempRoot){
-            
-        // }
+        q.push(tempRoot);
+        while(!q.empty()){
+            cout << q.front()->val << endl;
+            if(q.front()->left){
+                q.push(q.front()->left);
+            }
+            if(q.front()->right){
+                q.push(q.front()->right);
+            }
+            q.pop();
+        }
     }
 
 
@@ -91,6 +99,9 @@ public:
         }
         return false;
     }
+
+
+    
 };
 
 
@@ -104,13 +115,16 @@ int main(){
     a.insert(-5);
     a.insert(7);
     
-    cout << a.find(5) << endl;
+    cout << a.find(5) << a.find(95) << endl;
 
-
+    a.printBFS();
 
     return 0;
 }
 
+// Обходы  
+// Обход в ширину   +
+// Обход в глубину 
 
 // 1. Базовые методы
 // Эти методы являются основой для работы с деревьями.
