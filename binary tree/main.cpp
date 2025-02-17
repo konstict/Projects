@@ -101,7 +101,23 @@ public:
     }
 
 
-    
+    int countNodes(){
+        int valueOfNodes = 0;
+        node<T>* tempRoot = this->root;
+        queue<node<T>*> q;
+        q.push(tempRoot);
+        while(!q.empty()){
+            valueOfNodes++;
+            if(q.front()->left){
+                q.push(q.front()->left);
+            }
+            if(q.front()->right){
+                q.push(q.front()->right);
+            }
+            q.pop();
+        }
+        return valueOfNodes;
+    }
 };
 
 
@@ -118,6 +134,8 @@ int main(){
     cout << a.find(5) << a.find(95) << endl;
 
     a.printBFS();
+
+    cout << a.countNodes() << endl;
 
     return 0;
 }
@@ -144,7 +162,7 @@ int main(){
 // void remove(int value);
 // 🔹 Используется в: изменении структуры дерева.
 
-// 1.4. Подсчет количества узлов (countNodes)
+// 1.4. Подсчет количества узлов (countNodes)     +
 // Возвращает общее количество узлов в дереве.
 // int countNodes();
 // 🔹 Используется в: задачах на количество узлов.
