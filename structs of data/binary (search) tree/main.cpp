@@ -8,12 +8,12 @@ template<typename T>
 struct node {
     T val;
     node<T> *left, *right;
-    node<T>* parent;
+    bool visited = false;
     
     node() : val(NULL), left(nullptr), right(nullptr), parent(nullptr) {}
     node(T val) : val(val) {}
-    node(node<T>* left, node<T>* right, node<T>* parent) : val(NULL), left(left), right(right), parent(parent) {}
-    node(node<T>* left, node<T>* right, node<T>* parent, T val) : val(val), left(left), right(right), parent(parent) {}
+    node(node<T>* left, node<T>* right) : val(NULL), left(left), right(right) {}
+    node(node<T>* left, node<T>* right,  T val) : val(val), left(left), right(right) {}
 };
 
 
@@ -21,6 +21,25 @@ template<typename T>
 class tree{
 private:
     node<T>* root;
+
+
+    void allsNoVisited(){
+        node<T> * tempRoot = this->root;
+        queue<node<T>*> q;
+        q.push(tempRoot);
+        while(!q.empty()){
+            if(q.front()->left){
+                q.front()->visited = false;
+                q.pop();
+            }
+            if(q.front()->right){
+                q.front()->visited = false;
+                q.pop();
+            }
+        }
+    }
+
+    
 public:
     tree() : root(nullptr) {}
     tree(node<T>* root) : root(root) {}
@@ -49,6 +68,18 @@ public:
                 q.push(q.front()->right);
             }
             q.pop();
+        }
+    }
+
+
+    void printDFS(){
+        node<T>* tempRoot = this->root;
+        stack<node<T>*> s;
+        s.push(tempRoot);
+        while(!s.empty()){
+            if(s.top()->left){
+                
+            }
         }
     }
 
@@ -131,9 +162,9 @@ int main(){
     
     cout << a.find(5) << a.find(95) << endl;
 
-    a.printBFS();
-
     cout << a.countNodes() << endl;
+    
+    a.printDFS();
 
     return 0;
 }
