@@ -40,6 +40,20 @@ private:
     }
 
     
+    bool removeNode(node<T> *removeEl, node<T> *parent){
+        if(parent->left = removeEl){
+
+        }
+        else if(parent->right = removeEl){
+
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
+
+
 public:
     tree() : root(nullptr) {}
     tree(node<T>* root) : root(root) {}
@@ -126,6 +140,23 @@ public:
     }
 
 
+    bool remove(T element){
+        node<T> *tempRoot = this->root;
+        while(tempRoot){
+            if(tempRoot->val == element){
+                return this->removeNode(tempRoot, tempRoot);
+            }
+            else if(element < tempRoot->val){
+                tempRoot = tempRoot->left;
+            }
+            else{
+                tempRoot = tempRoot->right;
+            }
+        }
+        return false;
+    }
+
+
     bool find(T element){
         node<T>* tempRoot = this->root;
         while(tempRoot){
@@ -183,6 +214,8 @@ public:
         this->allNoVisited();
         return maxHeight;
     }
+
+
 };
 
 
