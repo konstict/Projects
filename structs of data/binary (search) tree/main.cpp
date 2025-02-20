@@ -10,7 +10,7 @@ struct node {
     node<T> *left, *right;
     bool visited = false;
     
-    node() : val(NULL), left(nullptr), right(nullptr), parent(nullptr) {}
+    node() : val(NULL), left(nullptr), right(nullptr) {}
     node(T val) : val(val) {}
     node(node<T>* left, node<T>* right) : val(NULL), left(left), right(right) {}
     node(node<T>* left, node<T>* right,  T val) : val(val), left(left), right(right) {}
@@ -23,19 +23,19 @@ private:
     node<T>* root;
 
 
-    void allsNoVisited(){
-        node<T> * tempRoot = this->root;
+    void allNoVisited(){
+        node<T> *tempRoot = this->root;
         queue<node<T>*> q;
         q.push(tempRoot);
         while(!q.empty()){
+            q.front()->visited = false;
             if(q.front()->left){
-                q.front()->visited = false;
-                q.pop();
+                q.push(q.front()->left);
             }
             if(q.front()->right){
-                q.front()->visited = false;
-                q.pop();
+                q.push(q.front()->right);
             }
+            q.pop();
         }
     }
 
@@ -60,7 +60,7 @@ public:
         queue<node<T>*> q;
         q.push(tempRoot);
         while(!q.empty()){
-            cout << q.front()->val << endl;
+            cout << q.front()->val << ' ';
             if(q.front()->left){
                 q.push(q.front()->left);
             }
@@ -69,6 +69,7 @@ public:
             }
             q.pop();
         }
+        cout << endl;
     }
 
 
@@ -76,11 +77,23 @@ public:
         node<T>* tempRoot = this->root;
         stack<node<T>*> s;
         s.push(tempRoot);
+        if(s.top()) cout << s.top()->val << ' ';
         while(!s.empty()){
-            if(s.top()->left){
-                
+            s.top()->visited = true;
+            if(s.top()->left and !s.top()->left->visited){
+                cout << s.top()->left->val << ' ';
+                s.push(s.top()->left);
+            }
+            else if(s.top()->right and !s.top()->right->visited){
+                cout << s.top()->right->val << ' ';
+                s.push(s.top()->right);
+            }
+            else{
+                s.pop();
             }
         }
+        cout << endl;
+        allNoVisited();
     }
 
 
@@ -147,6 +160,29 @@ public:
         }
         return valueOfNodes;
     }
+
+
+    int countHeight(){
+        int maxHeight = 0;
+        node<T> *tempRoot = this->root;
+        stack<node<T>*> s;
+        s.push(tempRoot);
+        while(!s.empty()){
+            s.top()->visited = true;
+            if(s.top()->left and !s.top()->left->visited){
+                s.push(s.top()->left);
+            }
+            else if(s.top()->right and !s.top()->right->visited){
+                s.push(s.top()->right);
+            }
+            else{
+                if(maxHeight < s.size()) maxHeight = s.size();
+                s.pop();
+            }
+        }
+        this->allNoVisited();
+        return maxHeight;
+    }
 };
 
 
@@ -159,19 +195,27 @@ int main(){
     a.insert(0);
     a.insert(-5);
     a.insert(7);
+    a.insert(67);
+    a.insert(37);
+    a.insert(-7);
+    a.insert(-7);
+    a.insert(10);
     
     cout << a.find(5) << a.find(95) << endl;
 
     cout << a.countNodes() << endl;
+    cout << a.countHeight() << endl;
     
     a.printDFS();
+    a.printBFS();
+
 
     return 0;
 }
 
 // Обходы  
 // Обход в ширину   +
-// Обход в глубину 
+// Обход в глубину   +
 
 // 1. Базовые методы
 // Эти методы являются основой для работы с деревьями.
@@ -196,7 +240,7 @@ int main(){
 // int countNodes();
 // 🔹 Используется в: задачах на количество узлов.
 
-// 1.5. Подсчет высоты дерева (height)
+// 1.5. Подсчет высоты дерева (height)          +
 // Возвращает высоту дерева.
 // int height();
 // 🔹 Используется в: проверке сбалансированности дерева, вычислении диаметра.
