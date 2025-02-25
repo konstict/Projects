@@ -10,9 +10,9 @@ struct node {
     node<T> *left, *right;
     bool visited = false;
     
-    node() : val(NULL), left(nullptr), right(nullptr) {}
+    node() : left(nullptr), right(nullptr) {}
     node(T val) : val(val) {}
-    node(node<T>* left, node<T>* right) : val(NULL), left(left), right(right) {}
+    node(node<T>* left, node<T>* right) : left(left), right(right) {}
     node(node<T>* left, node<T>* right,  T val) : val(val), left(left), right(right) {}
 };
 
@@ -40,16 +40,33 @@ private:
     }
 
     
-    bool removeNode(node<T> *removeEl, node<T> *parent){
-        if(parent->left = removeEl){
-
+    void insertBFS(node<T>* rootEl){
+        queue<node<T>*> q;
+        q.push(rootEl);
+        while(!q.empty()){
+            if(q.front() != rootEl) this->insert(q.front()->val);
+            if(q.front()->left){
+                q.push(q.front()->left);
+            }
+            if(q.front()->right){
+                q.push(q.front()->right);
+            }
+            q.pop();
         }
-        else if(parent->right = removeEl){
+    }
 
+
+    bool removeNode(node<T> *removeEl, node<T> *parent){
+        if(parent->left == removeEl){
+            parent->left = nullptr;
+        }
+        else if(parent->right == removeEl){
+            parent->right = nullptr;
         }
         else{
             return false;
         }
+        insertBFS(removeEl);
         return true;
     }
 
@@ -142,14 +159,25 @@ public:
 
     bool remove(T element){
         node<T> *tempRoot = this->root;
+
+        queue<node<T>*> pathParents;
+        node<T> *parent = tempRoot;
+        pathParents.push(parent);
+
         while(tempRoot){
             if(tempRoot->val == element){
-                return this->removeNode(tempRoot, tempRoot);
+                return this->removeNode(tempRoot, pathParents.front());
             }
             else if(element < tempRoot->val){
+                pathParents.push(tempRoot->left);
+                pathParents.pop();
+
                 tempRoot = tempRoot->left;
             }
             else{
+                pathParents.push(tempRoot->right);
+                pathParents.pop();
+
                 tempRoot = tempRoot->right;
             }
         }
@@ -239,8 +267,11 @@ int main(){
     cout << a.countNodes() << endl;
     cout << a.countHeight() << endl;
     
+    cout << a.remove(10);
+    cout << endl;
+
     a.printDFS();
-    a.printBFS();
+    // a.printBFS();
 
 
     return 0;
