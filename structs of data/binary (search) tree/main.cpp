@@ -5,10 +5,10 @@ using namespace std;
 
 
 template<typename T>
-struct node {
+struct node { // узел дерева
     T val;
     node<T> *left, *right;
-    bool visited = false;
+    bool visited = false; // индикатор для поиска в глубину
     
     node() : left(nullptr), right(nullptr) {}
     node(T val) : val(val) {}
@@ -23,7 +23,7 @@ private:
     node<T>* root;
 
 
-    void allNoVisited(){
+    void allNoVisited(){  // для поиска в глубину - обозначает все непройденными узлами узлы в конце
         node<T> *tempRoot = this->root;
         queue<node<T>*> q;
         q.push(tempRoot);
@@ -40,7 +40,7 @@ private:
     }
 
     
-    void insertBFS(node<T>* rootEl){
+    void insertBFS(node<T>* rootEl){  // для удаления - вставка из оборванной части удаленной - в дерево
         queue<node<T>*> q;
         q.push(rootEl);
         while(!q.empty()){
@@ -56,11 +56,14 @@ private:
     }
 
 
-    bool removeNode(node<T> *removeEl, node<T> *parent){
-        if(parent->left == removeEl){
+    bool removeNode(node<T> *removeEl, node<T> *parent){  // удаление узла метод который принимает удаляемый элемент и его родителя
+        if (removeEl == parent){
+            this->root = nullptr;
+        }
+        else if(parent->left and parent->left == removeEl){
             parent->left = nullptr;
         }
-        else if(parent->right == removeEl){
+        else if(parent->right and parent->right == removeEl){
             parent->right = nullptr;
         }
         else{
@@ -159,25 +162,18 @@ public:
 
     bool remove(T element){
         node<T> *tempRoot = this->root;
-
-        queue<node<T>*> pathParents;
         node<T> *parent = tempRoot;
-        pathParents.push(parent);
 
         while(tempRoot){
             if(tempRoot->val == element){
-                return this->removeNode(tempRoot, pathParents.front());
+                return this->removeNode(tempRoot, parent);
             }
             else if(element < tempRoot->val){
-                pathParents.push(tempRoot->left);
-                pathParents.pop();
-
+                parent = tempRoot;
                 tempRoot = tempRoot->left;
             }
             else{
-                pathParents.push(tempRoot->right);
-                pathParents.pop();
-
+                parent = tempRoot;
                 tempRoot = tempRoot->right;
             }
         }
@@ -258,17 +254,17 @@ int main(){
     a.insert(7);
     a.insert(67);
     a.insert(37);
+    a.insert(40);
     a.insert(-7);
     a.insert(-7);
     a.insert(10);
     
-    cout << a.find(5) << a.find(95) << endl;
+    // cout << a.find(5) << a.find(95) << endl;
 
-    cout << a.countNodes() << endl;
-    cout << a.countHeight() << endl;
+    // cout << a.countNodes() << endl;
+    // cout << a.countHeight() << endl;
     
-    cout << a.remove(10);
-    cout << endl;
+    cout << a.remove(5) << endl;
 
     a.printDFS();
     // a.printBFS();
@@ -294,7 +290,7 @@ int main(){
 // bool find(int value);
 // 🔹 Используется в: поиске элемента в BST.
 
-// 1.3. Удаление узла (remove)
+// 1.3. Удаление узла (remove)            +
 // Удаляет узел из BST.
 // void remove(int value);
 // 🔹 Используется в: изменении структуры дерева.
