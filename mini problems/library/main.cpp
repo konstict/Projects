@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <unordered_map>
 using namespace std;
@@ -67,6 +68,28 @@ class Library{
 };
 
 
+struct Command{
+    string command;
+    vector<string> arguments;
+
+    Command(){}
+    Command(string com, vector<string> arg) : command(com), arguments(arg) {}
+};
+
+
+class Console{
+    public:
+    Console(){}
+
+
+    Command inputTextToCommand(string text){
+        Command command;
+        
+        return command;
+    }
+};
+
+
 int main(){
     Library lib;
 
@@ -74,9 +97,16 @@ int main(){
     lib.addBook(new Book("Ведьмак - Меч предназначения", "Анджей Сапковски", 1990));
     lib.addBook(new Book("Ведьмак - Кровь эльфов", "Анджей Сапковски", 1990));
 
-    lib.listBook();
-    cout << lib.getSize() << endl;
-    cout << lib.findBook(1)->nameBook << endl;
+    // lib.listBook();
+    // cout << lib.getSize() << endl;
+    // cout << lib.findBook(1)->nameBook << endl;
+
+    Console program;
+
+
+    // while(true){
+
+    // }
 
     return 0;
 }
