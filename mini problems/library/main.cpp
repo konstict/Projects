@@ -70,10 +70,32 @@ class Library{
 
 struct Command{
     string command;
-    vector<string> arguments;
+    string argument;
 
-    Command(){}
-    Command(string com, vector<string> arg) : command(com), arguments(arg) {}
+    Command() : command(""), argument("") {}
+    Command(string com, string arg) : command(com), argument(arg) {}
+
+
+    Command inputTextToCommand(string text){
+        Command command;
+        this->command = "";
+        this->argument = "";
+        bool arg = false;
+        for(int i = 0; i < text.size(); ++i){
+            if(arg == false and text[i] == ' '){
+                arg = true;
+            }
+            else{
+                if(arg == false){
+                    this->command.push_back(text[i]);
+                }
+                else{
+                    this->argument.push_back(text[i]);
+                }
+            }
+        }
+        return command;
+    }
 };
 
 
@@ -82,11 +104,6 @@ class Console{
     Console(){}
 
 
-    Command inputTextToCommand(string text){
-        Command command;
-        
-        return command;
-    }
 };
 
 
@@ -102,6 +119,11 @@ int main(){
     // cout << lib.findBook(1)->nameBook << endl;
 
     Console program;
+
+    Command com;
+    com.inputTextToCommand("find anjey sapkovski vedmak");
+    com.inputTextToCommand("findsdssd anjey sapkovski vedmakov");
+    cout << com.command << " arg: " << com.argument << endl;
 
 
     // while(true){
