@@ -5,6 +5,11 @@
 using namespace std;
 
 
+void lowChar(char& ch){
+    ch = tolower(ch);
+}
+
+
 struct Book{
     public:
 
@@ -81,6 +86,7 @@ struct Command{
         this->argument = "";
         bool arg = false;
         for(int i = 0; i < text.size(); ++i){
+            lowChar(text[i]);
             if(arg == false and text[i] == ' '){
                 arg = true;
             }
@@ -89,7 +95,7 @@ struct Command{
                     this->command.push_back(text[i]);
                 }
                 else{
-                    this->command.push_back(text[i]);
+                    this->argument.push_back(text[i]);
                 }
             }
         }
@@ -100,6 +106,9 @@ struct Command{
 class Console{
     public:
     Console(){}
+
+
+    
 
     private:
 };
@@ -118,10 +127,9 @@ int main(){
 
     Console program;
 
-    // Command com;
-    // com.inputTextToCommand("find anjey sapkovski vedmak");
-    // com.inputTextToCommand("findsdssd anjey sapkovski vedmakov");
-    // cout << com.command << " arg: " << com.argument << endl;
+    Command com;
+    com.inputTextToCommand("findsdssd anjeyYYYYYY sapkovski vedmakov");
+    cout << com.command << " arg: " << com.argument << endl;
 
 
     // while(true){
