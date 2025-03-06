@@ -76,8 +76,7 @@ struct Command{
     Command(string com, string arg) : command(com), argument(arg) {}
 
 
-    Command inputTextToCommand(string text){
-        Command command;
+    void inputTextToCommand(string text){
         this->command = "";
         this->argument = "";
         bool arg = false;
@@ -90,11 +89,10 @@ struct Command{
                     this->command.push_back(text[i]);
                 }
                 else{
-                    this->argument.push_back(text[i]);
+                    this->command.push_back(text[i]);
                 }
             }
         }
-        return command;
     }
 };
 
@@ -103,7 +101,7 @@ class Console{
     public:
     Console(){}
 
-
+    private:
 };
 
 
@@ -120,10 +118,10 @@ int main(){
 
     Console program;
 
-    Command com;
-    com.inputTextToCommand("find anjey sapkovski vedmak");
-    com.inputTextToCommand("findsdssd anjey sapkovski vedmakov");
-    cout << com.command << " arg: " << com.argument << endl;
+    // Command com;
+    // com.inputTextToCommand("find anjey sapkovski vedmak");
+    // com.inputTextToCommand("findsdssd anjey sapkovski vedmakov");
+    // cout << com.command << " arg: " << com.argument << endl;
 
 
     // while(true){
