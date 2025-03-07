@@ -103,38 +103,55 @@ struct Command{
 };
 
 
-class Console{
+class ConsoleLibrary{
     public:
-    Console(){}
+    ConsoleLibrary(Library* i_ConsoleLibrary) : currentLibrary(i_ConsoleLibrary), commands(nullptr) {
+        
+    }
+    
+    
+    void workingInputOutputConsole(){
+        string inputConsole = "";
+        cout << "Command: " << endl;
+        cin >> inputConsole;
 
+        Command* commandAndArgument = new Command;
+        commandAndArgument->inputTextToCommand(inputConsole);
+
+        if(commandAndArgument->command == "find"){
+            this->findBook(commandAndArgument->argument);
+        }
+    }
 
     
-
     private:
+    Library* currentLibrary;
+    unordered_map<string, int(string) >* commands;
+
+
+    int findBook(string text){
+        int numBook = -1;
+        cout << 1;
+        return numBook;
+    }
 };
 
 
 int main(){
     Library lib;
-
     lib.addBook(new Book("Ведьмак - Последнее желание", "Анджей Сапковски", 1990));
     lib.addBook(new Book("Ведьмак - Меч предназначения", "Анджей Сапковски", 1990));
     lib.addBook(new Book("Ведьмак - Кровь эльфов", "Анджей Сапковски", 1990));
+
 
     // lib.listBook();
     // cout << lib.getSize() << endl;
     // cout << lib.findBook(1)->nameBook << endl;
 
-    Console program;
 
-    Command com;
-    com.inputTextToCommand("findsdssd anjeyYYYYYY sapkovski vedmakov");
-    cout << com.command << " arg: " << com.argument << endl;
+    ConsoleLibrary program(&lib);
+    program.workingInputOutputConsole();
 
-
-    // while(true){
-
-    // }
 
     return 0;
 }
