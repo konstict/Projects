@@ -1,7 +1,14 @@
-// Чернов Константин
 #include <iostream>
 #include <queue>
 using namespace std;
+
+
+bool primeNumber(int number){
+    for(int i = 1+1; i < number; ++i){
+        if(number % i == 0) return false;
+    }
+    return true;
+}
 
 
 int problem1(){
@@ -11,7 +18,7 @@ int problem1(){
     if(n < 1) return 1;
     
     for (int i = 1; i <= n; ++i){
-        cout << i << endl;
+        if (primeNumber(i)) cout << i << endl;
     }
     
     return 0;
@@ -62,7 +69,7 @@ int problem4(){
     queue<int> *st = new queue<int>;
     int currentDigit = 0;
     while(n != 0){
-        currentDigit = n - (n/10)*10;
+        currentDigit = n % 10;
         st->push(currentDigit);
         n /= 10;
     }
@@ -96,10 +103,10 @@ int problem5(){
 
 int main() {
     // Методы нужно коментить, чтобы выбирать какие запускать задачки
-    problem1();
-    problem2();
-    problem3();
-    problem4();
+    // problem1();
+    // problem2();
+    // problem3();
+    // problem4();
     problem5();
     return 0;
 }
