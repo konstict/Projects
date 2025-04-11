@@ -78,10 +78,10 @@ void swapBlocksOfVector(vector< vector <vector<int>>> &list, int first, int seco
 int main() {
     srand(time(NULL));
     int n = 3;
-    cout << "BB n" << endl;
-    cin >> n;
-    cout << "BB max random" << endl;
-    cin >> lim;
+    // cout << "BB n" << endl;
+    // cin >> n;
+    // cout << "BB max random" << endl;
+    // cin >> lim;
     
     int lenght = 2*n;
     vector< vector <vector<int>>> list(4, vector<vector<int>>(n, vector<int>(n)));
@@ -91,14 +91,15 @@ int main() {
     printList(list);
     
     // 0-1 1-3 3-2 2-0
-    vector<vector<int>> targetList = {{0,3}, {1,0}, {2,3}, {3,1}}; // po etomu spisku budem swapat`
+    vector<vector<int>> targetList = {{0,2}, {1,0}, {2,3}, {3,1}}; // po etomu spisku budem swapat`
     
     vector< vector <vector<int>>> nList(0);
     for(int i = 0; i < targetList.size(); ++i){
         int firstIndex = targetList[i][0];
         int secondIndex = targetList[i][1];
+        insertingList = list[secondIndex];
         
-        nList.push_back(list[secondIndex]);
+        nList.push_back(insertingList);
         // swapBlocksOfVector(list, firstIndex, secondIndex);
         cout << endl;
     }
