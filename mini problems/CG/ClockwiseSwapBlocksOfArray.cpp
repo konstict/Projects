@@ -13,43 +13,46 @@ int getRandomNum(int lim){
 
 
 int lim = 10;
-void generate(vector< vector <vector<int>>> &list){
+void generate(vector< vector <vector<int>>*> &list){
     for(int i = 0; i < list.size(); ++i){
-        for(int j = 0; j < list[i].size(); ++j){
-            for(int k = 0; k < list[j].size(); ++k){
-                list[i][j][k] = getRandomNum(lim);
+        for(int j = 0; j < list[i]->size(); ++j){
+            for(int k = 0; k < list[j]->size(); ++k){
+                (*list[i]) [j][k] = getRandomNum(lim);
             }
         }
     }
 }
 
 
-void printList(vector< vector <vector<int>>> &list){
-    for(int i = 0; i < list[0].size(); ++i){
-        for(int j = 0; j < list[i].size(); ++j){
+void printList(vector< vector <vector<int>>*> &list){
+    for(int i = 0; i < list[0]->size(); ++i){
+        for(int j = 0; j < list[i]->size(); ++j){
             cout.width(5);
-            cout << list[0][i][j];
+            cout << (*list[0])[i][j];
         }
+        cout.width(5);
         cout << '|';
-        for(int j = 0; j < list[i].size(); ++j){
+        for(int j = 0; j < list[i]->size(); ++j){
             cout.width(5);
-            cout << list[1][i][j];
+            cout << (*list[1])[i][j];
         }
         cout << endl;
         
     }
     cout << "--------------------------------------------------------------------------------------------------" << endl;
-    for(int i = 0; i < list[0].size(); ++i){
-        for(int j = 0; j < list[i].size(); ++j){
+    for(int i = 0; i < list[0]->size(); ++i){
+        for(int j = 0; j < list[i]->size(); ++j){
             cout.width(5);
-            cout << list[2][i][j];
+            cout << (*list[2])[i][j];
         }
+        cout.width(5);
         cout << '|';
-        for(int j = 0; j < list[i].size(); ++j){
+        for(int j = 0; j < list[i]->size(); ++j){
             cout.width(5);
-            cout << list[3][i][j];
+            cout << (*list[3])[i][j];
         }
         cout << endl;
+        
     }
 }
 
@@ -77,14 +80,17 @@ void swapBlocksOfVector(vector< vector <vector<int>>> &list, int first, int seco
 
 int main() {
     srand(time(NULL));
-    int n = 3;
+    int n = 5;
     // cout << "BB n" << endl;
     // cin >> n;
     // cout << "BB max random" << endl;
     // cin >> lim;
     
     int lenght = 2*n;
-    vector< vector <vector<int>>> list(4, vector<vector<int>>(n, vector<int>(n)));
+    vector< vector<vector<int>>* > list(4);
+    for (int i = 0; i < list.size(); ++i){
+        list[i] = new vector<vector<int>>(n, vector<int>(n));
+    }
     
     generate(list);
     cout << "iznachalniy arraylist" << endl;
@@ -93,15 +99,15 @@ int main() {
     // 0-1 1-3 3-2 2-0
     vector<vector<int>> targetList = {{0,2}, {1,0}, {2,3}, {3,1}}; // po etomu spisku budem swapat`
     
-    vector< vector <vector<int>>> nList(0);
+    vector< vector <vector<int>>*> nList(0);
     for(int i = 0; i < targetList.size(); ++i){
         int firstIndex = targetList[i][0];
         int secondIndex = targetList[i][1];
-        insertingList = list[secondIndex];
+        vector <vector<int>>* insertingList = list[secondIndex];
         
         nList.push_back(insertingList);
         // swapBlocksOfVector(list, firstIndex, secondIndex);
-        cout << endl;
+        // cout << endl;
     }
     
     cout << endl << "swapnutiy arraylist" << endl;
