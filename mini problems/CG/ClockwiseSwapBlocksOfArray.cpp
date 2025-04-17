@@ -12,7 +12,7 @@ int getRandomNum(int lim){ // random number with random sign
 }
 
 
-int lim = 10;
+int lim = 100;
 void generate(vector< vector <vector<int>>*> &list){ // generate full arraylist of random numbers
     int sizeY = list[0]->size();
     int sizeX = list[0][0].size();
@@ -43,7 +43,10 @@ void printList(vector< vector <vector<int>>*> &list){ // print 3-m arraylist
         cout << endl;
         
     }
-    cout << "--------------------------------------------------------------------------------------------------" << endl;
+
+    for(int i = 0; i < sizeX; ++i) cout << "-----------";
+    cout << endl;
+
     for(int i = 0; i < sizeY; ++i){
         for(int j = 0; j < sizeX; ++j){
             cout.width(5);
@@ -86,7 +89,7 @@ int main() {
     srand(time(NULL));
     
     // user giving numbers
-    int lenght = 10;
+    int lenght = 20;
     cout << "BB n" << endl;
     cin >> lenght;
     cout << "BB max random" << endl;
@@ -121,5 +124,6 @@ int main() {
     cout << endl << "swaped arraylist" << endl;
     printList(nList);
     
+    cout << clock() << endl;
     return 0;
 }
